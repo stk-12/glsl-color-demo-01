@@ -154,20 +154,22 @@ void main() {
 
   // Simplex 3D Noise
   // float noise = snoise(vec3(uv, 1.0));
-  // float noise = snoise(vec3(uv, uTime * 0.5));
+  float noise = snoise(vec3(uv, uTime * 0.5));
   // float noise = snoise(vec3(uv * 2.0, uTime * 0.5));
   // float noise = snoise(vec3(uv.x, uv.y, uTime * 0.5));
   // float noise = snoise(vec3(uv.x * 2.0, uv.y * 2.0, uTime * 0.2));
   // float noise = snoise(vec3(uv.x * 2.0 + sin(uv.y + uTime), uv.y * 2.0, uTime * 0.5));
-  float noise = snoise(vec3(uv.x * 2.0 - uTime * 0.2, uv.y * 2.0 - uTime * 0.2, uTime * 0.5));
+  // float noise = snoise(vec3(uv.x * 2.0 - uTime * 0.2, uv.y * 2.0 - uTime * 0.2, uTime * 0.5));
   // float noise = snoise(vec3(uv.x * 20.0 - uTime * 0.2, uv.y * 20.0 - uTime * 0.2, uTime * 0.5));
   // float noise = snoise(vec3(uv.x * 414.0 - uTime * 0.2, uv.y * 414.0 - uTime * 0.2, uTime * 8.8));
   // float noise = snoise(vec3(uv.x * 4.0 - uTime * 0.2, uv.y * 4.0 - uTime * 0.2, uTime * 0.8));
 
 
   // vec3 color = mix(GREEN, GREEN1, noise);
-  vec3 color = mix(GREEN, YELLOW, noise);
+  // vec3 color = mix(GREEN, YELLOW, noise);
   // vec3 color = mix(texColor, GREEN, noise);
   // vec3 color = mix(RED, BLUE, 0.5);
+  // vec3 color = mix(mix(GREEN, YELLOW, uv.x), mix(BLUE, RED, uv.x), uv.y);
+  vec3 color = mix(mix(GREEN, YELLOW, noise), mix(BLUE, RED, noise), uv.y);
   gl_FragColor = vec4(color, 1.0);
 }

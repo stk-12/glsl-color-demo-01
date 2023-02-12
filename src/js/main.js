@@ -1,6 +1,7 @@
 import '../css/style.scss'
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import GUI from "lil-gui";
 import vertexSource from "./shader/vertexShader.glsl";
 import fragmentSource from "./shader/fragmentShader.glsl";
 
@@ -21,6 +22,7 @@ class Main {
     this.cameraFovRadian = (this.cameraFov / 2) * (Math.PI / 180);
     this.cameraDistance = (this.viewport.height / 2) / Math.tan(this.cameraFovRadian);
     this.controls = null;
+    this.gui = new GUI();
     this.geometry = null;
     this.cubeGeometry = null;
     this.material = null;
@@ -31,6 +33,9 @@ class Main {
       uTime: {
         value: 0.0
       },
+      uTimeSpeed: {
+        value: 0.5
+      },
       uTex: {
         value: this.texture
       },
@@ -40,6 +45,9 @@ class Main {
       uTexResolution: {
         value: new THREE.Vector2(2048, 1024)
       },
+      uNoiseLoudness: {
+        value: 1.0
+      }
     };
 
     this.clock = new THREE.Clock();
@@ -72,6 +80,11 @@ class Main {
     this.camera.position.z = this.cameraDistance;
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
     this.scene.add(this.camera);
+  }
+
+  _setGui() {
+    this.gui.add(this.uniforms.uNoiseLoudness, 'value').min(0.0).max(50.0).step(0.2).name('ノイズの粒度')
+    this.gui.add(this.uniforms.uTimeSpeed, 'value').min(0.001).max(5.0).step(0.001).name('速さ')
   }
 
   _setControlls() {
@@ -116,6 +129,7 @@ class Main {
   init() {
     this._setRenderer();
     this._setCamera();
+    this._setGui();
     this._setControlls();
     this._setLight();
     this._addMesh();

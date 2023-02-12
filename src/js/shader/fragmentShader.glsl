@@ -1,9 +1,11 @@
 varying vec2 vUv;
 varying vec3 vPosition;
 uniform float uTime;
+uniform float uTimeSpeed;
 uniform sampler2D uTex;
 uniform vec2 uResolution;
 uniform vec2 uTexResolution;
+uniform float uNoiseLoudness;
 
 // Simplex 2D noise
 //
@@ -155,7 +157,7 @@ void main() {
 
   // Simplex 3D Noise
   // float noise = snoise(vec3(uv, 1.0));
-  float noise = snoise(vec3(vUv, uTime * 0.5));
+  float noise = snoise(vec3(vUv * uNoiseLoudness, uTime * uTimeSpeed));
   // float noise = snoise(vec3(uv * 2.0, uTime * 0.5));
   // float noise = snoise(vec3(uv.x, uv.y, uTime * 0.5));
   // float noise = snoise(vec3(uv.x * 2.0, uv.y * 2.0, uTime * 0.2));
@@ -169,9 +171,8 @@ void main() {
   // vec3 color = mix(GREEN, GREEN1, noise);
   // vec3 color = mix(GREEN, YELLOW, noise);
   // vec3 color = mix(texColor, GREEN, noise);
-  // vec3 color = mix(RED, BLUE, 0.5);
   // vec3 color = mix(mix(GREEN, YELLOW, uv.x), mix(BLUE, RED, uv.x), uv.y);
-  // vec3 color = mix(mix(GREEN, YELLOW, noise), mix(BLUE, RED, noise), vUv.y);
-  vec3 color = mix(mix(GREEN, YELLOW, noise), mix(BLUE, RED, noise), noise * 0.5);
+  vec3 color = mix(mix(GREEN, YELLOW, noise), mix(BLUE, RED, noise), vUv.y);
+  // vec3 color = mix(mix(GREEN, YELLOW, noise), mix(BLUE, RED, noise), noise * 0.5);
   gl_FragColor = vec4(color, 1.0);
 }

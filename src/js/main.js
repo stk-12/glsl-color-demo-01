@@ -83,8 +83,8 @@ class Main {
   }
 
   _setGui() {
-    this.gui.add(this.uniforms.uNoiseLoudness, 'value').min(0.0).max(50.0).step(0.2).name('ノイズの粒度')
-    this.gui.add(this.uniforms.uTimeSpeed, 'value').min(0.001).max(5.0).step(0.001).name('速さ')
+    this.gui.add(this.uniforms.uNoiseLoudness, 'value').min(0.0).max(50.0).step(0.2).name('Noise Size')
+    this.gui.add(this.uniforms.uTimeSpeed, 'value').min(0.001).max(5.0).step(0.001).name('Speed')
   }
 
   _setControlls() {

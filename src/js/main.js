@@ -22,8 +22,10 @@ class Main {
     this.cameraDistance = (this.viewport.height / 2) / Math.tan(this.cameraFovRadian);
     this.controls = null;
     this.geometry = null;
+    this.cubeGeometry = null;
     this.material = null;
     this.mesh = null;
+    this.cubeMesh = null;
 
     this.uniforms = {
       uTime: {
@@ -85,8 +87,8 @@ class Main {
 
   _addMesh() {
     //ジオメトリ
-    // this.geometry = new THREE.PlaneGeometry(this.viewport.width, this.viewport.height, 40, 40);
-    this.geometry = new THREE.SphereGeometry(this.viewport.width * 0.25, 40, 40);
+    this.geometry = new THREE.PlaneGeometry(this.viewport.width, this.viewport.height, 40, 40);
+    this.cubeGeometry = new THREE.SphereGeometry(200, 40, 40);
 
     //テクスチャ
     const loader = new THREE.TextureLoader();
@@ -105,6 +107,10 @@ class Main {
     //メッシュ
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.scene.add(this.mesh);
+
+    this.cubeMesh = new THREE.Mesh(this.cubeGeometry, this.material);
+    this.cubeMesh.position.z += 300;
+    this.scene.add(this.cubeMesh);
   }
 
   init() {

@@ -5,7 +5,7 @@ uniform float uTimeSpeed;
 uniform sampler2D uTex;
 uniform vec2 uResolution;
 uniform vec2 uTexResolution;
-uniform float uNoiseLoudness;
+uniform vec2 uNoiseLoudness;
 
 // Simplex 2D noise
 //
@@ -172,7 +172,7 @@ void main() {
   // float noise = snoise(vec3(vUv.y * uNoiseLoudness, vUv.y * uNoiseLoudness, uTime * uTimeSpeed));
   // sin,cosでuv全体に回転を加える
   // float noise = snoise(vec3(vUv.x + cos(uTime * 0.1) * uNoiseLoudness, vUv.y + sin(uTime * 0.2) * uNoiseLoudness, uTime * uTimeSpeed));
-  float noise = snoise(vec3(vUv.x * uNoiseLoudness + cos(uTime * 0.5), vUv.y * uNoiseLoudness + sin(uTime * 0.5), uTime * uTimeSpeed));
+  float noise = snoise(vec3(vUv.x * uNoiseLoudness.x + cos(uTime * 0.5), vUv.y * uNoiseLoudness.y + sin(uTime * 0.5), uTime * uTimeSpeed));
 
 
   // vec3 color = mix(GREEN, GREEN1, noise);

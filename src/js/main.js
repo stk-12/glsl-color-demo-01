@@ -6,6 +6,7 @@ import vertexSource from "./shader/vertexShader.glsl";
 import fragmentSource from "./shader/fragmentShader.glsl";
 
 import img from '../images/image.jpg';
+import { Vector2 } from 'three';
 
 class Main {
   constructor() {
@@ -46,8 +47,8 @@ class Main {
         value: new THREE.Vector2(2048, 1024)
       },
       uNoiseLoudness: {
-        value: 1.0
-      }
+        value: new THREE.Vector2(1.0, 1.0)
+      },
     };
 
     this.clock = new THREE.Clock();
@@ -83,7 +84,8 @@ class Main {
   }
 
   _setGui() {
-    this.gui.add(this.uniforms.uNoiseLoudness, 'value').min(0.0).max(50.0).step(0.2).name('Noise Size')
+    this.gui.add(this.uniforms.uNoiseLoudness.value, 'x').min(0.0).max(100.0).step(0.2).name('Noise X')
+    this.gui.add(this.uniforms.uNoiseLoudness.value, 'y').min(0.0).max(100.0).step(0.2).name('Noise Y')
     this.gui.add(this.uniforms.uTimeSpeed, 'value').min(0.001).max(5.0).step(0.001).name('Speed')
   }
 

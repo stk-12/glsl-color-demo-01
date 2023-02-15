@@ -6,7 +6,6 @@ import vertexSource from "./shader/vertexShader.glsl";
 import fragmentSource from "./shader/fragmentShader.glsl";
 
 import img from '../images/image.jpg';
-import { Vector2 } from 'three';
 
 class Main {
   constructor() {
@@ -49,6 +48,18 @@ class Main {
       uNoiseLoudness: {
         value: new THREE.Vector2(1.0, 1.0)
       },
+      uColor1: {
+        value: new THREE.Color(0x159f85)
+      },
+      uColor2: {
+        value: new THREE.Color(0xf4d03e)
+      },
+      uColor3: {
+        value: new THREE.Color(0xd33e8c)
+      },
+      uColor4: {
+        value: new THREE.Color(0x014fc4)
+      }
     };
 
     this.clock = new THREE.Clock();
@@ -87,6 +98,10 @@ class Main {
     this.gui.add(this.uniforms.uNoiseLoudness.value, 'x').min(0.0).max(100.0).step(0.2).name('Noise X')
     this.gui.add(this.uniforms.uNoiseLoudness.value, 'y').min(0.0).max(100.0).step(0.2).name('Noise Y')
     this.gui.add(this.uniforms.uTimeSpeed, 'value').min(0.001).max(5.0).step(0.001).name('Speed')
+    this.gui.addColor(this.uniforms.uColor1, 'value').name('Color 1').listen()
+    this.gui.addColor(this.uniforms.uColor2, 'value').name('Color 2').listen()
+    this.gui.addColor(this.uniforms.uColor3, 'value').name('Color 3').listen()
+    this.gui.addColor(this.uniforms.uColor4, 'value').name('Color 4').listen()
   }
 
   _setControlls() {
@@ -141,6 +156,7 @@ class Main {
   }
 
   _update() {
+
     const elapsedTime = this.clock.getElapsedTime();
     this.uniforms.uTime.value = elapsedTime * 0.5;
 

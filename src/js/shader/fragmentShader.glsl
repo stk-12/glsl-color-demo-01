@@ -6,6 +6,10 @@ uniform sampler2D uTex;
 uniform vec2 uResolution;
 uniform vec2 uTexResolution;
 uniform vec2 uNoiseLoudness;
+uniform vec3 uColor1;
+uniform vec3 uColor2;
+uniform vec3 uColor3;
+uniform vec3 uColor4;
 
 // Simplex 2D noise
 //
@@ -146,6 +150,11 @@ void main() {
   // vec3 RED = vec3(0.831, 0.247, 0.552);
   vec3 BLUE = vec3(0.007, 0.313, 0.772);
 
+  vec3 COLOR1 = uColor1;
+  vec3 COLOR2 = uColor2;
+  vec3 COLOR3 = uColor3;
+  vec3 COLOR4 = uColor4;
+
   // Simplex 2D Noise
   // noiseにuvを適用、数値をかけ合わせるとノイズが細かくなる
   // float noise = snoise(uv * 3.0);
@@ -180,7 +189,7 @@ void main() {
   // vec3 color = mix(texColor, GREEN, noise);
   // vec3 color = mix(mix(GREEN, YELLOW, uv.x), mix(BLUE, RED, uv.x), uv.y);
   // vec3 color = mix(mix(GREEN, YELLOW, noise), mix(BLUE, RED, noise), vUv.y);
-  vec3 color = mix(mix(GREEN, YELLOW, noise), mix(BLUE, RED, noise), vUv.y + sin(uTime * 0.5));
+  vec3 color = mix(mix(COLOR1, COLOR2, noise), mix(COLOR4, COLOR3, noise), vUv.y + sin(uTime * 0.5));
   // vec3 color = mix(mix(GREEN, YELLOW, noise), mix(BLUE, RED, noise), noise * 0.5);
   gl_FragColor = vec4(color, 1.0);
 }

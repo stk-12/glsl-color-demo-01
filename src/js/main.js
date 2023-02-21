@@ -5,7 +5,7 @@ import GUI from "lil-gui";
 import vertexSource from "./shader/vertexShader.glsl";
 import fragmentSource from "./shader/fragmentShader.glsl";
 
-import img from '../images/image.jpg';
+import palettes from 'nice-color-palettes';
 
 class Main {
   constructor() {
@@ -29,15 +29,14 @@ class Main {
     this.mesh = null;
     this.cubeMesh = null;
 
+    this.pallets = palettes[19].map((color) => new THREE.Color(color));
+
     this.uniforms = {
       uTime: {
         value: 0.0
       },
       uTimeSpeed: {
         value: 0.5
-      },
-      uTex: {
-        value: this.texture
       },
       uResolution: {
         value: new THREE.Vector2(this.viewport.width, this.viewport.height)
@@ -49,16 +48,16 @@ class Main {
         value: new THREE.Vector2(1.0, 1.0)
       },
       uColor1: {
-        value: new THREE.Color(0x159f85)
+        value: this.pallets[0]
       },
       uColor2: {
-        value: new THREE.Color(0xf4d03e)
+        value: this.pallets[1]
       },
       uColor3: {
-        value: new THREE.Color(0xd33e8c)
+        value: this.pallets[2]
       },
       uColor4: {
-        value: new THREE.Color(0x014fc4)
+        value: this.pallets[3]
       }
     };
 
@@ -119,12 +118,6 @@ class Main {
     //ジオメトリ
     this.geometry = new THREE.PlaneGeometry(this.viewport.width, this.viewport.height, 40, 40);
     this.cubeGeometry = new THREE.SphereGeometry(200, 40, 40);
-
-    //テクスチャ
-    const loader = new THREE.TextureLoader();
-    this.uniforms.uTex.value = loader.load(img);
-
-    console.log(this.texture);
 
     //マテリアル
     this.material = new THREE.ShaderMaterial({

@@ -2,7 +2,6 @@ varying vec2 vUv;
 varying vec3 vPosition;
 uniform float uTime;
 uniform float uTimeSpeed;
-uniform sampler2D uTex;
 uniform vec2 uResolution;
 uniform vec2 uTexResolution;
 uniform vec2 uNoiseLoudness;
@@ -27,16 +26,8 @@ void main() {
     vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
     vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
   );
-  // vec3 color = texture2D(uTex, uv).rgb;
-  vec3 texColor = texture2D(uTex, uv).rgb;
-
-  // vec3 RED = vec3(0.831, 0.247, 0.552);
-  // vec3 BLUE = vec3(0.007, 0.313, 0.772);
 
   float time = sin(uTime * 10.0) * 0.5 + 0.5;
-  // vec3 color = mix(RED, BLUE, time);
-  // // vec3 color = mix(RED, BLUE, 0.5);
-  // gl_FragColor = vec4(color, 1.0);
 
 
 

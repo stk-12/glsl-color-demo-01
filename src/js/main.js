@@ -29,7 +29,9 @@ class Main {
     this.mesh = null;
     this.cubeMesh = null;
 
-    this.pallets = palettes[19].map((color) => new THREE.Color(color));
+    this.indexPallets = 2;
+    this.pallets = null;
+    this._setPallets(this.indexPallets);
 
     this.uniforms = {
       uTime: {
@@ -93,14 +95,35 @@ class Main {
     this.scene.add(this.camera);
   }
 
+  _setPallets(index) {
+    this.pallets = palettes[index].map((color) => new THREE.Color(color));
+    
+  }
+
   _setGui() {
-    this.gui.add(this.uniforms.uNoiseLoudness.value, 'x').min(0.0).max(100.0).step(0.2).name('Noise X')
-    this.gui.add(this.uniforms.uNoiseLoudness.value, 'y').min(0.0).max(100.0).step(0.2).name('Noise Y')
-    this.gui.add(this.uniforms.uTimeSpeed, 'value').min(0.001).max(5.0).step(0.001).name('Speed')
-    this.gui.addColor(this.uniforms.uColor1, 'value').name('Color 1').listen()
-    this.gui.addColor(this.uniforms.uColor2, 'value').name('Color 2').listen()
-    this.gui.addColor(this.uniforms.uColor3, 'value').name('Color 3').listen()
-    this.gui.addColor(this.uniforms.uColor4, 'value').name('Color 4').listen()
+    const colorGuiObj = {
+      changeColor: ()=> {
+        this.indexPallets = Math.floor(Math.random() * 100);
+        // console.log(this.indexPallets);
+        this._setPallets(this.indexPallets);
+        // console.log(this.pallets);
+        this.uniforms.uColor1.value = this.pallets[0];
+        this.uniforms.uColor2.value = this.pallets[1];
+        this.uniforms.uColor3.value = this.pallets[2];
+        this.uniforms.uColor4.value = this.pallets[3];
+      }
+    }
+
+    this.gui.add(this.uniforms.uNoiseLoudness.value, 'x').min(0.0).max(100.0).step(0.2).name('ノイズ X軸')
+    this.gui.add(this.uniforms.uNoiseLoudness.value, 'y').min(0.0).max(100.0).step(0.2).name('ノイズ Y軸')
+    this.gui.add(this.uniforms.uTimeSpeed, 'value').min(0.001).max(5.0).step(0.001).name('スピード')
+    this.gui.addColor(this.uniforms.uColor1, 'value').name('カラー 1').listen()
+    this.gui.addColor(this.uniforms.uColor2, 'value').name('カラー 2').listen()
+    this.gui.addColor(this.uniforms.uColor3, 'value').name('カラー 3').listen()
+    this.gui.addColor(this.uniforms.uColor4, 'value').name('カラー 4').listen()
+    this.gui.add(colorGuiObj, 'changeColor').name('配色を変更').listen()
+
+    
   }
 
   _setControlls() {
@@ -133,7 +156,7 @@ class Main {
 
     this.cubeMesh = new THREE.Mesh(this.cubeGeometry, this.material);
     this.cubeMesh.position.z += 300;
-    this.scene.add(this.cubeMesh);
+    // this.scene.add(this.cubeMesh);
   }
 
   init() {

@@ -49,6 +49,12 @@ class Main {
       uNoiseLoudness: {
         value: new THREE.Vector2(1.0, 1.0)
       },
+      uGrainScale: {
+        value: 0.3
+      },
+      uGrainStrong: {
+        value: 0.1
+      },
       uColor1: {
         value: this.pallets[0]
       },
@@ -105,6 +111,8 @@ class Main {
 
     this.gui.add(this.uniforms.uNoiseLoudness.value, 'x').min(0.0).max(100.0).step(0.2).name('ノイズ X軸')
     this.gui.add(this.uniforms.uNoiseLoudness.value, 'y').min(0.0).max(100.0).step(0.2).name('ノイズ Y軸')
+    this.gui.add(this.uniforms.uGrainScale, 'value').min(0.0).max(1.0).step(0.01).name('粒子ノイズ サイズ')
+    this.gui.add(this.uniforms.uGrainStrong, 'value').min(0.0).max(1.0).step(0.01).name('粒子ノイズ 濃さ')
     this.gui.add(this.uniforms.uTimeSpeed, 'value').min(0.001).max(5.0).step(0.001).name('スピード')
     this.gui.addColor(this.uniforms.uColor1, 'value').name('カラー 1').listen()
     this.gui.addColor(this.uniforms.uColor2, 'value').name('カラー 2').listen()

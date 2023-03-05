@@ -66,9 +66,6 @@ class Main {
     this.clock = new THREE.Clock();
 
     this.init();
-    // this._init();
-    // this._update();
-    // this._addEvent();
   }
 
   _setRenderer() {
@@ -81,14 +78,8 @@ class Main {
   }
 
   _setCamera() {
-    // this.camera = new THREE.PerspectiveCamera(45, this.viewport.width / this.viewport.height, 1, 100);
-    // this.camera.position.set(0, 0, 5);
-    // this.scene.add(this.camera);
 
     //ウインドウとWebGL座標を一致させる
-    // const fov = 45;
-    // const fovRadian = (fov / 2) * (Math.PI / 180); //視野角をラジアンに変換
-    // const distance = (this.viewport.height / 2) / Math.tan(fovRadian); //ウインドウぴったりのカメラ距離
     this.camera = new THREE.PerspectiveCamera(this.cameraFov, this.viewport.width / this.viewport.height, 1, this.cameraDistance * 2);
     this.camera.position.z = this.cameraDistance;
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -104,9 +95,7 @@ class Main {
     const colorGuiObj = {
       changeColor: ()=> {
         this.indexPallets = Math.floor(Math.random() * 100);
-        // console.log(this.indexPallets);
         this._setPallets(this.indexPallets);
-        // console.log(this.pallets);
         this.uniforms.uColor1.value = this.pallets[0];
         this.uniforms.uColor2.value = this.pallets[1];
         this.uniforms.uColor3.value = this.pallets[2];
@@ -156,7 +145,6 @@ class Main {
 
     this.cubeMesh = new THREE.Mesh(this.cubeGeometry, this.material);
     this.cubeMesh.position.z += 300;
-    // this.scene.add(this.cubeMesh);
   }
 
   init() {
